@@ -1,0 +1,30 @@
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'rspec-api/requests/version'
+
+Gem::Specification.new do |spec|
+  spec.name          = "rspec-api-requests"
+  spec.version       = RSpecApi::Requests::VERSION
+  spec.authors       = ["claudiob"]
+  spec.email         = ["claudiob@gmail.com"]
+  spec.description   = %q{}
+  spec.summary       = %q{}
+  spec.homepage      = 'https://github.com/rspec-api/rspec-api-requests'
+  spec.license       = 'MIT'
+
+  spec.files         = Dir['{lib}/**/*'] + ['MIT-LICENSE', 'README.md']
+
+  spec.test_files    = spec.files.grep(%r{^spec/})
+  spec.require_paths = ['lib']
+
+  spec.required_ruby_version = '>= 1.9.3'
+  spec.required_rubygems_version = ">= 1.3.6"
+
+  spec.add_dependency 'rspec'
+  spec.add_dependency 'rspec-api-expectations', '~> 0.6.0' # expect(200).to match_status(200)
+
+  # For development / Code coverage
+  spec.add_development_dependency 'bundler', '~> 1.3'
+  spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'coveralls'
+end
