@@ -9,10 +9,12 @@ module RSpecApi
     module RespondWith
       def respond_with(status, params = {}, &block)
         request, request_errors = build_request params
+        expectations = build_expectations status
+
         describe_request(request) do
           if request_errors.none?
             response = send_request request
-            expect_response response, status: status
+            expect_response response, expectations
             # NOTE: might move the following *inside* expect_response
             context 'matches custom expectations' do
               it { instance_exec response, request[:prefix_params], &block }
@@ -38,6 +40,10 @@ module RSpecApi
         request.merge! rspec_api.slice(:host, :action, :authorize_with)
         missing_required_fields = [:host, :route, :action] - request.keys
         [request, missing_required_fields]
+      end
+
+      def build_expectations(status)
+        rspec_api.slice(:collection).merge status: status
       end
 
       def rspec_api

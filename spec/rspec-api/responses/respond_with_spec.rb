@@ -18,10 +18,11 @@ describe 'respond_with', sandboxing: true do
   include RSpecApi::Responses
 
   let(:route) { '/' }
-  let(:rspec_api) { {host: 'http://example.com', route: route, action: :get} }
+  let(:rspec_api) { {host: 'http://example.com', route: route, action: :get, collection: collection} }
   let(:status) { :ok }
   let(:params) { {} }
   let(:block) { nil }
+  let(:collection) { false }
   let(:example) { respond_with status, params, &block }
 
   context 'given no parameters' do
@@ -56,6 +57,16 @@ describe 'respond_with', sandboxing: true do
           expect(example).to pass
         end
       end
+    end
+
+    context 'given the response matches the collection expectation' do
+      let(:collection) { false }
+      it { expect(example).to pass }
+    end
+
+    context 'given the response does not match the collection expectation' do
+      let(:collection) { true }
+      it { expect(example).not_to pass }
     end
   end
 
