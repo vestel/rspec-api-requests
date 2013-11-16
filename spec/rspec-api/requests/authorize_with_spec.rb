@@ -20,4 +20,3 @@ describe 'authorize_with', sandboxing: true do
     it { expect(action).not_to pass }
   end
 end
-
