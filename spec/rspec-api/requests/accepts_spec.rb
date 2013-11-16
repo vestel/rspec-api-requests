@@ -40,4 +40,18 @@ describe 'accepts', sandboxing: true do
     let(:params) { {} }
     it { expect(action).to pass }
   end
+
+  context 'given a callback accept' do
+    let(:block) { Proc.new {
+      should_have_extra_requests [
+        {params: {alert: 'anyCallback'}, expect: {callback: 'anyCallback'}}
+      ] } }
+    let(:action) {
+      accepts callback: :alert
+      get '/concerts', params, &block
+    }
+
+    let(:params) { {} }
+    it { expect(action).to pass }
+  end
 end

@@ -142,3 +142,17 @@ describe 'Accepts page', rspec_api: true do
     respond_with :ok
   end
 end
+
+describe 'Accepts callback', rspec_api: true do
+  host 'https://api.github.com'
+  authorize_with token: ENV['RSPEC_API_GITHUB_TOKEN']
+  accepts callback: :callback
+
+  get '/events' do
+    respond_with :ok
+  end
+
+  get '/events', extra_requests: [{params: {callback: 'foo'}, expect: {callback: 'foo'}}] do
+    respond_with :ok
+  end
+end
