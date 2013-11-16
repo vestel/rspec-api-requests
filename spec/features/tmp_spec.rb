@@ -124,7 +124,11 @@ describe 'Accepts sort', rspec_api: true do
     respond_with :ok
   end
 
-  get '/user/starred', collection: true, extra_requests: [{params: {sort: :updated, direction: :desc}, expect: {sort: {by: :pushed_at, verse: :desc}}}] do
+  get '/user/starred', extra_requests: [{params: {sort: :updated, direction: :desc}, expect: {sort: {by: :pushed_at, verse: :desc}}}] do
+    respond_with :ok
+  end
+
+  get '/notifications/threads/17915960' do
     respond_with :ok
   end
 end
@@ -138,7 +142,11 @@ describe 'Accepts page', rspec_api: true do
     respond_with :ok
   end
 
-  get '/events', collection: true, extra_requests: [{params: {page: 3}, expect: {page_links: true}}] do
+  get '/events', extra_requests: [{params: {page: 3}, expect: {page_links: true}}] do
+    respond_with :ok
+  end
+
+  get '/notifications/threads/17915960' do
     respond_with :ok
   end
 end
@@ -153,6 +161,28 @@ describe 'Accepts callback', rspec_api: true do
   end
 
   get '/events', extra_requests: [{params: {callback: 'foo'}, expect: {callback: 'foo'}}] do
+    respond_with :ok
+  end
+
+  get '/notifications/threads/17915960' do
+    respond_with :ok
+  end
+end
+
+describe 'Accepts filter', rspec_api: true do
+  host 'https://api.github.com'
+  authorize_with token: ENV['RSPEC_API_GITHUB_TOKEN']
+  accepts filter: :since, value: (Time.now - 10e4).iso8601, by: :updated_at, compare_with: :>=
+
+  get '/gists/public', collection: true do
+    respond_with :ok
+  end
+
+  get '/gists/public', extra_requests: [{params: {since: (Time.now - 10e3).iso8601}, expect: {filter: {by: :updated_at, compare_with: :>=, value: (Time.now - 10e3).iso8601}}}] do
+    respond_with :ok
+  end
+
+  get '/notifications/threads/17915960' do
     respond_with :ok
   end
 end

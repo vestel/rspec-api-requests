@@ -8,7 +8,9 @@ module RSpecApi
           options[:action] = action
           options[:route] = route
           options[:host] ||= rspec_api[:host] if rspec_api[:host]
-          options[:extra_requests] ||= rspec_api[:extra_requests] if rspec_api[:extra_requests] && options[:collection]
+          options[:extra_requests] ||= rspec_api[:accept_requests].map do |request|
+            request.slice(:params, :expect) if options[:collection] || request[:all]
+          end.compact if rspec_api[:accept_requests]
           options[:attributes] ||= rspec_api[:attributes] if rspec_api[:attributes]
           options[:authorize_with] ||= rspec_api[:authorize_with] if rspec_api[:authorize_with]
           RSpec::Core::ExampleGroup.describe "#{action.upcase} #{route}", options do

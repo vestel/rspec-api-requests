@@ -2,38 +2,66 @@ module RSpecApi
   module Requests
     module Accepts
       def accepts(options = {})
-        extra_request = if options.keys.include? :sort
-          accepts_sort options
-        elsif options.keys.include? :page
-          accepts_page options
-        elsif options.keys.include? :callback
-          accepts_callback options
-        end
-        (rspec_api[:extra_requests] ||= []) << extra_request if extra_request
-        # accepts_filter options if options.keys.include? :filter
+        add_request_for accepts_sort(options) if options.key? :sort
+        add_request_for accepts_filter(options) if options.key? :filter
+        add_request_for accepts_page(options) if options.key? :page
+        add_request_for accepts_callback(options) if options.key? :callback
       end
 
     private
 
-      def accepts_sort(options = {})
-        {
-          params: {sort: options[:sort]}.merge(options.fetch :sort_if, {}),
-          expect: {sort: options.slice(:by, :verse)}
-        }
+      def add_request_for(opts = {})
+        (rspec_api[:accept_requests] ||= []) << opts
       end
 
-      def accepts_page(options = {})
-        {
-          params: {}.tap{|params| params[options[:page]] = 2},
-          expect: {page_links: true}
-        }
+      def accepts_sort(opts = {})
+        {params: sort_params(opts), expect: sort_expect(opts)}
       end
 
-      def accepts_callback(options = {})
-        {
-          params: {}.tap{|params| params[options[:callback]] = 'anyCallback'},
-          expect: {callback: 'anyCallback'}
-        }
+      def sort_params(opts = {})
+        {sort: opts[:sort]}.merge(opts.fetch :sort_if, {})
+      end
+
+      def sort_expect(opts = {})
+        {sort: opts.slice(:by, :verse)}
+      end
+
+      def accepts_filter(opts = {})
+        {params: filter_params(opts), expect: filter_expect(opts)}
+      end
+
+      def filter_params(opts = {})
+        {}.tap{|params| params[opts[:filter]] = opts[:value]}
+      end
+
+      def filter_expect(opts = {})
+        {filter: opts.slice(:by, :compare_with, :value)}
+      end
+
+      def accepts_page(opts = {})
+        {params: page_params(opts), expect: page_expect(opts)}
+      end
+
+      def page_params(opts = {})
+        {}.tap{|params| params[opts[:page]] = 2}
+      end
+
+      def page_expect(opts = {})
+        {page_links: true}
+      end
+
+      def accepts_callback(opts = {})
+        # NOTE: This is the only accepts that affects *all* the requests,
+        #       not just the ones that return a collection
+        {params: callback_params(opts), expect: callback_expect(opts), all: true}
+      end
+
+      def callback_params(opts = {})
+        {}.tap{|params| params[opts[:callback]] = 'anyCallback'}
+      end
+
+      def callback_expect(opts = {})
+        {callback: 'anyCallback'}
       end
 
       def rspec_api

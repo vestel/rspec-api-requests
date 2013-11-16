@@ -16,13 +16,18 @@ describe 'accepts', sandboxing: true do
       get '/concerts', params, &block
     }
 
-    context 'given an action that does not override the extra_requests' do
-      let(:params) { {} }
+    context 'given an action on a collection' do
+      let(:params) { {collection: true} }
       it { expect(action).to pass }
     end
 
+    context 'given an action on a non-collection' do
+      let(:params) { {collection: false} }
+      it { expect(action).not_to pass }
+    end
+
     context 'given an action that overrides the extra_requests' do
-      let(:params) { {extra_requests: []} }
+      let(:params) { {collection: true, extra_requests: []} }
       it { expect(action).not_to pass }
     end
   end
@@ -37,8 +42,15 @@ describe 'accepts', sandboxing: true do
       get '/concerts', params, &block
     }
 
-    let(:params) { {} }
-    it { expect(action).to pass }
+    context 'given an action on a collection' do
+      let(:params) { {collection: true} }
+      it { expect(action).to pass }
+    end
+
+    context 'given an action on a non-collection' do
+      let(:params) { {collection: false} }
+      it { expect(action).not_to pass }
+    end
   end
 
   context 'given a callback accept' do
@@ -51,7 +63,35 @@ describe 'accepts', sandboxing: true do
       get '/concerts', params, &block
     }
 
-    let(:params) { {} }
-    it { expect(action).to pass }
+    context 'given an action on a collection' do
+      let(:params) { {collection: true} }
+      it { expect(action).to pass }
+    end
+
+    context 'given an action on a non-collection' do
+      let(:params) { {collection: false} }
+      it { expect(action).to pass }
+    end
+  end
+
+  context 'given a filter accept' do
+    let(:block) { Proc.new {
+      should_have_extra_requests [
+        {params: {active: true}, expect: {filter: {by: :enabled, value: true}}}
+      ] } }
+    let(:action) {
+      accepts filter: :active, by: :enabled, value: true
+      get '/concerts', params, &block
+    }
+
+    context 'given an action on a collection' do
+      let(:params) { {collection: true} }
+      it { expect(action).to pass }
+    end
+
+    context 'given an action on a non-collection' do
+      let(:params) { {collection: false} }
+      it { expect(action).not_to pass }
+    end
   end
 end
