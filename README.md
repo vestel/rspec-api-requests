@@ -1,6 +1,16 @@
 RSpec API Requests
 ==================
 
+More documentation and examples about RSpecApi are available at [http://rspec-api.github.io](http://rspec-api.github.io)
+
+[![Build Status](https://travis-ci.org/rspec-api/rspec-api-requests.png?branch=master)](https://travis-ci.org/rspec-api/rspec-api-requests)
+[![Code Climate](https://codeclimate.com/github/rspec-api/rspec-api-requests.png)](https://codeclimate.com/github/rspec-api/rspec-api-requests)
+[![Coverage Status](https://coveralls.io/repos/rspec-api/rspec-api-requests/badge.png)](https://coveralls.io/r/rspec-api/rspec-api-requests)
+[![Dependency Status](https://gemnasium.com/rspec-api/rspec-api-requests.png)](https://gemnasium.com/rspec-api/rspec-api-requests)
+
+
+**DRAFT! Work in Progress! Caution!**
+
 Remember how RSpecApi::Expectations let you write something like this?
 
     # 1. Make a request to the GitHub API:
@@ -57,7 +67,6 @@ with the same expectations on the attributes, which is a best practice of
 an API. For instance if you get ONE repo, ALL the repos or FILTERED repos,
 you should still get a result with those attributes:
 
-
       get '/repositories?since=1234' do
         respond_with :ok
       end
@@ -83,3 +92,5 @@ Also, `respond_with` gets the values to replace the placeholders in the route
 * more expectations on the attributes can be set with `has_attribute`
 
 * configuration about the requests can be set with `host` and `authorize_with`
+
+* extra requests can be run with `accepts`

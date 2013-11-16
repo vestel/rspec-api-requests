@@ -4,3 +4,6 @@ rvm:
 - 1.9.3
 notifications:
   email: false
+env:
+  global:
+    secure: V2jfEQ+ec0xx7KWQtEMm1pa8yMV1hYH2lijc8MNdrRE+JZKkbdK3O9JcBu7oj7SEDVKvl2fkKG0QSwVUN/JK6ptxDuGvVQ2PQtocTr3UVjhin7vv1xRsjWyvstPbUolIIFk7kcjYsRPkLoFsiEnq+b763A9fzohF2wDIGTzOSlc=
