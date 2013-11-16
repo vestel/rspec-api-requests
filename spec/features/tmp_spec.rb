@@ -114,3 +114,17 @@ describe 'Attributes', rspec_api: true do
     respond_with :ok
   end
 end
+
+describe 'Accepts', rspec_api: true do
+  host 'https://api.github.com'
+  authorize_with token: ENV['RSPEC_API_GITHUB_TOKEN']
+  accepts sort: :updated, by: :pushed_at, sort_if: {direction: 'asc'}
+
+  get '/user/starred', collection: true do
+    respond_with :ok
+  end
+
+  get '/user/starred', collection: true, extra_requests: [{params: {sort: :updated, direction: :desc}, expect: {sort: {by: :pushed_at, verse: :desc}}}] do
+    respond_with :ok
+  end
+end

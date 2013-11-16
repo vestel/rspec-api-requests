@@ -1,3 +1,4 @@
 source 'https://rubygems.org'
-gem 'debugger'
+# gem 'rspec-api-expectations', path: '../rspec-api-expectations'
+# gem 'debugger'
 gemspec

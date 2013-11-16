@@ -1,4 +1,5 @@
 require 'rspec/core'
+require 'rspec-api/requests/accepts'
 require 'rspec-api/requests/actions'
 require 'rspec-api/requests/authorize_with'
 require 'rspec-api/requests/has_attribute'
@@ -7,6 +8,7 @@ require 'rspec-api/requests/host'
 
 module RSpecApi
   module Requests
+    include Accepts
     include Actions
     include Authorization
     include HasAttribute

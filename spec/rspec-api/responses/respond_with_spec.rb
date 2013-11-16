@@ -79,6 +79,24 @@ describe 'respond_with', sandboxing: true do
     it { expect(example).not_to pass }
   end
 
+  context 'given extra requests' do
+    let(:rspec_api) { {host: 'http://example.com', route: route, action: :get, extra_requests: [{}, {}]} }
+    it 'runs one more request for each extra request' do
+      expect(example.length).to eq 3
+    end
+  end
+
+  context 'given a passing extra requests' do
+    let(:rspec_api) { {host: 'http://example.com', route: route, action: :get, extra_requests: [{}]} }
+    it { expect(example.last).to pass }
+  end
+
+  context 'given a failing extra request' do
+    let(:rspec_api) { {host: 'http://example.com', route: route, action: :get, extra_requests: [{expect: {sort: {by: :id}}, params: {foo: :bar}}]} }
+    it { expect(example.last).not_to pass }
+  end
+
+
   context 'given a parameter that matches a placeholder in the route' do
     let(:route) { '/:id' }
     let(:params) { {id: 123} }

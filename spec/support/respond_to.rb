@@ -23,3 +23,7 @@ end
 def should_have_attributes(attributes)
   it { expect(example.metadata[:attributes]).to eq attributes }
 end
+
+def should_have_extra_requests(extra_requests)
+  it { expect(example.metadata[:extra_requests]).to eq extra_requests }
+end
