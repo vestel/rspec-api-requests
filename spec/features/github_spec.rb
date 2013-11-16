@@ -10,14 +10,14 @@ require 'rspec-api/requests'
 # environment variable RSPEC_API_GITHUB_TOKEN
 #
 describe 'List all public repositories', rspec_api: true do
-  # host 'https://api.github.com/'
-  # authorize_with: {token: ENV['RSPEC_API_GITHUB_TOKEN']}
+  host 'https://api.github.com/'
+  authorize_with token: ENV['RSPEC_API_GITHUB_TOKEN']
   #
   # has_attribute :id, {type: :number}
   # has_attribute :name, {type: :string}, url: {type: {string: :url}}}
 
   get '/repositories' do
-    # respond_with :ok
+    respond_with :ok
   end
 
   get '/repositories?since=1234' do

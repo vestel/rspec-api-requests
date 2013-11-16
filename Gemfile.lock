@@ -2,6 +2,8 @@ PATH
   remote: .
   specs:
     rspec-api-requests (0.0.1)
+      activesupport
+      faraday
       rspec
       rspec-api-expectations (~> 0.6.0)
 

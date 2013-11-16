@@ -23,6 +23,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rspec'
   spec.add_dependency 'rspec-api-expectations', '~> 0.6.0' # expect(200).to match_status(200)
 
+  spec.add_dependency 'activesupport' # to .slice, etc
+  spec.add_dependency 'faraday' # to send remote HTTP requests
+
   # For development / Code coverage
   spec.add_development_dependency 'bundler', '~> 1.3'
   spec.add_development_dependency 'rake'

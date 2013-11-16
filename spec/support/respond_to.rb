@@ -11,3 +11,11 @@ def should_not_respond_to(method)
     expect(respond_to).to be_false
   end
 end
+
+def should_authorize_with(authorization)
+  it { expect(example.metadata[:authorize_with]).to eq authorization }
+end
+
+def should_have_host(host)
+  it { expect(example.metadata[:host]).to eq host }
+end
