@@ -19,3 +19,7 @@ end
 def should_have_host(host)
   it { expect(example.metadata[:host]).to eq host }
 end
+
+def should_have_attributes(attributes)
+  it { expect(example.metadata[:attributes]).to eq attributes }
+end

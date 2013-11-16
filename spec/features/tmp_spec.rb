@@ -73,16 +73,34 @@ require 'rspec-api/requests'
 #     end
 #   end
 # end
+#
+# describe 'With collection', rspec_api: true do
+#   host 'https://api.github.com'
+#   authorize_with token: ENV['RSPEC_API_GITHUB_TOKEN']
+#
+#   get '/notifications', collection: true do
+#     respond_with :ok
+#   end
+#
+#   get '/notifications/threads/17915960', collection: false do
+#     respond_with :ok
+#   end
+#
+#   get '/notifications/threads/17915960' do
+#     respond_with :ok
+#   end
+# end
 
-describe 'With collection', rspec_api: true do
+describe 'Attributes', rspec_api: true do
   host 'https://api.github.com'
   authorize_with token: ENV['RSPEC_API_GITHUB_TOKEN']
-
+  has_attribute :id, type: :string
+  
   get '/notifications', collection: true do
     respond_with :ok
   end
 
-  get '/notifications/threads/17915960', collection: false do
+  get '/notifications', attributes: {last_read_at: {type: [:null, string: :timestamp]}} do
     respond_with :ok
   end
 

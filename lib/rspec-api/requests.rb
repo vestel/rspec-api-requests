@@ -1,16 +1,16 @@
 require 'rspec/core'
 require 'rspec-api/requests/actions'
 require 'rspec-api/requests/authorization'
+require 'rspec-api/requests/has_attribute'
 require 'rspec-api/requests/host'
-# require 'rspec-api/requests/attributes'
 # require 'rspec-api/requests/remote'
 
 module RSpecApi
   module Requests
     include Actions
     include Authorization
+    include HasAttribute
     include Host
-    # include Attributes
     # include Remote
   end
 end

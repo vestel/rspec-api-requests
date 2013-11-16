@@ -43,7 +43,10 @@ module RSpecApi
       end
 
       def build_expectations(status)
-        rspec_api.slice(:collection).merge status: status
+        keys = [:collection, :attributes]
+        rspec_api.slice(*keys).delete_if{|k, v| v.blank?}.tap do |expectations|
+          expectations[:status] = status
+        end
       end
 
       def rspec_api
