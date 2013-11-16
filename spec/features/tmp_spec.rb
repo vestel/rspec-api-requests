@@ -115,7 +115,7 @@ describe 'Attributes', rspec_api: true do
   end
 end
 
-describe 'Accepts', rspec_api: true do
+describe 'Accepts sort', rspec_api: true do
   host 'https://api.github.com'
   authorize_with token: ENV['RSPEC_API_GITHUB_TOKEN']
   accepts sort: :updated, by: :pushed_at, sort_if: {direction: 'asc'}
@@ -125,6 +125,20 @@ describe 'Accepts', rspec_api: true do
   end
 
   get '/user/starred', collection: true, extra_requests: [{params: {sort: :updated, direction: :desc}, expect: {sort: {by: :pushed_at, verse: :desc}}}] do
+    respond_with :ok
+  end
+end
+
+describe 'Accepts page', rspec_api: true do
+  host 'https://api.github.com'
+  authorize_with token: ENV['RSPEC_API_GITHUB_TOKEN']
+  accepts page: :page
+
+  get '/events', collection: true do
+    respond_with :ok
+  end
+
+  get '/events', collection: true, extra_requests: [{params: {page: 3}, expect: {page_links: true}}] do
     respond_with :ok
   end
 end
