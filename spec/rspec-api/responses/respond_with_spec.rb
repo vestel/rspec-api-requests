@@ -27,56 +27,56 @@ describe 'respond_with', sandboxing: true do
   context 'given no parameters' do
     let(:params) { {} }
     it { expect(example.description).to eq 'at /' }
+  end
 
-    context 'given an expected status that does not match the response status' do
-      let(:status) { :not_found }
-      it { expect(example).not_to pass }
-    end
+  context 'given an expected status that does not match the response status' do
+    let(:status) { :not_found }
+    it { expect(example).not_to pass }
+  end
 
-    context 'given an expected status that matches the response status' do
-      let(:status) { :ok }
-      context 'given no block' do
-        let(:block) { nil }
-        it { expect(example).to pass }
-      end
-
-      context 'given a passing block with no arguments' do
-        let(:block) { Proc.new { expect(true).to be_true } }
-        it { expect(example).to pass }
-      end
-
-      context 'given a failing block with no arguments' do
-        let(:block) { Proc.new { expect(true).to be_false } }
-        it { expect(example).not_to pass }
-      end
-
-      context 'given a block with one argument' do
-        let(:block) { Proc.new {|arg1| expect(arg1.status).to eq 200} }
-        it 'passes the response as the first argument of the block' do
-          expect(example).to pass
-        end
-      end
-    end
-
-    context 'given the response matches the collection expectation' do
-      let(:rspec_api) { {host: 'http://example.com', route: route, action: :get, collection: false} }
+  context 'given an expected status that matches the response status' do
+    let(:status) { :ok }
+    context 'given no block' do
+      let(:block) { nil }
       it { expect(example).to pass }
     end
 
-    context 'given the response does not match the collection expectation' do
-      let(:rspec_api) { {host: 'http://example.com', route: route, action: :get, collection: true} }
-      it { expect(example).not_to pass }
-    end
-
-    context 'given the response matches the attributes expectation' do
-      let(:rspec_api) { {host: 'http://example.com', route: route, action: :get, attributes: {}} }
+    context 'given a passing block with no arguments' do
+      let(:block) { Proc.new { expect(true).to be_true } }
       it { expect(example).to pass }
     end
 
-    context 'given the response does not match the attributes expectation' do
-      let(:rspec_api) { {host: 'http://example.com', route: route, action: :get, attributes: {id: {type: :string}}} }
+    context 'given a failing block with no arguments' do
+      let(:block) { Proc.new { expect(true).to be_false } }
       it { expect(example).not_to pass }
     end
+
+    context 'given a block with one argument' do
+      let(:block) { Proc.new {|arg1| expect(arg1.status).to eq 200} }
+      it 'passes the response as the first argument of the block' do
+        expect(example).to pass
+      end
+    end
+  end
+
+  context 'given the response matches the collection expectation' do
+    let(:rspec_api) { {host: 'http://example.com', route: route, action: :get, collection: false} }
+    it { expect(example).to pass }
+  end
+
+  context 'given the response does not match the collection expectation' do
+    let(:rspec_api) { {host: 'http://example.com', route: route, action: :get, collection: true} }
+    it { expect(example).not_to pass }
+  end
+
+  context 'given the response matches the attributes expectation' do
+    let(:rspec_api) { {host: 'http://example.com', route: route, action: :get, attributes: {}} }
+    it { expect(example).to pass }
+  end
+
+  context 'given the response does not match the attributes expectation' do
+    let(:rspec_api) { {host: 'http://example.com', route: route, action: :get, attributes: {id: {type: :string}}} }
+    it { expect(example).not_to pass }
   end
 
   context 'given a parameter that matches a placeholder in the route' do

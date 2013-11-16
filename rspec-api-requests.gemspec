@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.required_rubygems_version = ">= 1.3.6"
 
   spec.add_dependency 'rspec'
-  spec.add_dependency 'rspec-api-expectations', '~> 0.6.0' # expect(200).to match_status(200)
+  spec.add_dependency 'rspec-api-expectations', '~> 0.6.1' # expect(200).to match_status(200)
 
   spec.add_dependency 'activesupport' # to .slice, etc
   spec.add_dependency 'faraday' # to send remote HTTP requests
