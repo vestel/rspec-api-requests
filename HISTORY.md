@@ -1,4 +1,4 @@
-v0.6.2  - 2013/11/16
+v0.7.0  - 2013/11/24
 --------------------
 
-* extracted from rspec-api
+* extracted `respond_with` from rspec-api
