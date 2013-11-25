@@ -12,7 +12,7 @@ module RSpecApi
         expectations = expectations_for status, params
         request, prefix_params = request_for params, values
 
-        RSpec::Core::ExampleGroup.describe description_for(request) do
+        describe description_for(request) do
           if valid
             extend RSpecApi::Requests::Valid
             valid_request request, expectations, prefix_params, &block
@@ -20,7 +20,7 @@ module RSpecApi
             extend RSpecApi::Requests::Pending
             pending_request
           end
-        end.register
+        end
       end
 
     private

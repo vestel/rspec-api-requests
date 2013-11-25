@@ -3,6 +3,7 @@ require 'rspec-api/respond_with'
 
 describe 'respond_with', sandboxing: true do
   include RSpecApi::RespondWith
+  include RSpec::Core::DSL
 
   let(:status) { :ok }
   let(:given_values) { {} }
@@ -10,6 +11,7 @@ describe 'respond_with', sandboxing: true do
   let(:route) { '/' }
   let(:rspec_api_params) { {action: 'get', route: route, host: 'http://example.com'} }
   let(:example) { respond_with status, given_values, &block }
+
 
   context 'given the action rspec_api_params metadata is missing' do
     let(:rspec_api_params) { {route: '/', host: 'http://api.example.com'} }
