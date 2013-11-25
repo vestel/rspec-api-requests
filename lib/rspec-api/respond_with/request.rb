@@ -27,8 +27,8 @@ module RSpecApi
 
       def request_for(params, values)
         keys = [:host, :action, :adapter, :authorize_with, :throttle]
-        route, body, extra = interpolate params[:route], values
-        [params.slice(*keys).merge(route: route, body: body), extra]
+        route, body, extra = interpolate params[:route], values, params[:extra]
+        [params.slice(*keys).merge(route: route, body: body), params[:extra]]
       end
 
       def expectations_for(status, params)
@@ -44,11 +44,11 @@ module RSpecApi
         end
       end
 
-      def interpolate(route, values = {})
-        [(route.dup if route), values, {}].tap do |route, body, extra|
+      def interpolate(route, values = {}, extra = {})
+        [route, values, extra].tap do |route, values, extra|
           route = route.tap do |route|
-            body.keys.each do |param|
-              body.delete(param).tap do |value|
+            values.keys.each do |param|
+              values.delete(param).tap do |value|
                 route.gsub! "/:#{param}", "/#{value}"
                 extra[param] = value
               end if route.match "/:#{param}"
