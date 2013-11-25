@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'rspec-api/responses'
+require 'rspec-api/respond_with'
 
 describe 'send_request' do
   include RSpecApi::HttpClient

@@ -1,36 +1,31 @@
 require 'rspec/core'
-require 'rspec-api/requests/accepts'
-require 'rspec-api/requests/actions'
-require 'rspec-api/requests/authorize_with'
-require 'rspec-api/requests/has_attribute'
-require 'rspec-api/requests/host'
-# require 'rspec-api/requests/remote'
+require 'rspec-api/respond_with'
 
 module RSpecApi
+  # Provides the `respond_with` method to RSpec Example groups, useful to
+  # make requests to web APIs and verify their expectations:
+  #
+  # To have these matchers available inside of an RSpec `describe` block,
+  # include that block inside a block with the `:rspec_api` metadata, or
+  # explicitly include the RSpecApi::Requests module.
+  #
+  # @example Tag a `describe` block as `:rspec_api`:
+  #   describe "Artists", rspec_api: true do
+  #     describe 'GET /artists', rspec_api_requests: {...}
+  #       ... # here you can write `respond_with :ok`
+  #     end
+  #   end
+  #
+  # @example Explicitly include the RSpecApi::Responses module
+  #   describe "Artists" do
+  #     include RSpecApi::Requests
+  #     describe 'GET /artists', rspec_api_requests: {...}
+  #       ... # here you can write `respond_with :ok`
+  #     end
+  #   end
   module Requests
-    include Accepts
-    include Actions
-    include Authorization
-    include HasAttribute
-    include Host
-    # include Remote
+    include RespondWith
   end
 end
 
-# RSpecApi::Requests provides the actions method to test RESTful APIs.
-#
-# To have this method available inside of an RSpec `describe` block, tag that
-# block with the `:rspec_api` metadata:
-#
-#  describe "Artists", rspec_api: true do
-#     ... # here you can write `expect_response response, status: :ok, etc.
-#  end
 RSpec.configuration.extend RSpecApi::Requests, rspec_api: true
-
-# You can also explicitly extend the example group with RSpecApi::Requests:
-#
-#  describe "Artists" do
-#     extend RSpecApi::Requests
-#     ... # here you can write `expect_response response, status: :ok, etc.
-#  end
-#

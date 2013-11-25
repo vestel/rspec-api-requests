@@ -1,12 +1,23 @@
 RSpec API Requests
 ==================
 
+RSpecApi::Requests lets make requests to web APIs and verify their expectations:
+
+    params = {host: 'http://api.example.com', route: '/concerts', attributes: {where: {type: :string}}
+
+    describe 'GET /concerts', rspec_api_params: params do
+      respond_with :ok
+    end
+
 More documentation and examples about RSpecApi are available at [http://rspec-api.github.io](http://rspec-api.github.io)
 
 [![Build Status](https://travis-ci.org/rspec-api/rspec-api-requests.png?branch=master)](https://travis-ci.org/rspec-api/rspec-api-requests)
 [![Code Climate](https://codeclimate.com/github/rspec-api/rspec-api-requests.png)](https://codeclimate.com/github/rspec-api/rspec-api-requests)
 [![Coverage Status](https://coveralls.io/repos/rspec-api/rspec-api-requests/badge.png)](https://coveralls.io/r/rspec-api/rspec-api-requests)
 [![Dependency Status](https://gemnasium.com/rspec-api/rspec-api-requests.png)](https://gemnasium.com/rspec-api/rspec-api-requests)
+
+
+
 
 
 **DRAFT! Work in Progress! Caution!**

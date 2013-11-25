@@ -1,20 +1,23 @@
 require 'spec_helper'
 require 'rspec-api/requests'
 
-actions = [:get, :put, :post, :patch, :delete]
-methods = actions #+ [:host, :authorize_with, :has_attribute]
-
 describe RSpecApi::Requests do
-  context 'example groups tagged as :rspec_api', :rspec_api do
-    methods.each{|method| should_respond_to method}
+  context 'inside example groups tagged as :rspec_api', :rspec_api do
+    describe 'describe blocks' do
+      should_respond_to :respond_with
+    end
   end
 
-  context 'example groups that include RSpecApi::Expectations' do
+  context 'inside example groups that extend RSpecApi::Requests' do
     extend RSpecApi::Requests
-    methods.each{|method| should_respond_to method}
+    describe 'describe blocks' do
+      should_respond_to :respond_with
+    end
   end
-
-  context 'other example groups' do
-    methods.each{|method| should_not_respond_to method}
+  
+  context 'inside other example groups' do
+    describe 'describe blocks' do
+      should_not_respond_to :respond_with
+    end
   end
 end
