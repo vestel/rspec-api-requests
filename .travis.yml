@@ -1,9 +1,18 @@
 language: ruby
 rvm:
 - 2.0.0
-- 1.9.3
+- 1.9.2
 notifications:
   email: false
+gemfile:
+  - gemfiles/Gemfile.activesupport-3.x
+  - gemfiles/Gemfile.activesupport-4.x
+matrix:
+  exclude:
+    - rvm: 1.9.2
+      gemfile: gemfiles/Gemfile.activesupport-4.x
+    - rvm: 2.0.0
+      gemfile: gemfiles/Gemfile.activesupport-3.x
 env:
   global:
     secure: V2jfEQ+ec0xx7KWQtEMm1pa8yMV1hYH2lijc8MNdrRE+JZKkbdK3O9JcBu7oj7SEDVKvl2fkKG0QSwVUN/JK6ptxDuGvVQ2PQtocTr3UVjhin7vv1xRsjWyvstPbUolIIFk7kcjYsRPkLoFsiEnq+b763A9fzohF2wDIGTzOSlc=
