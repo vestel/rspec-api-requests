@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'rspec-api/requests'
+require 'rack/test'
 
 app = -> env {[200, {"Content-Type" => "application/json; charset=utf-8"}, ["[]"]] }
 

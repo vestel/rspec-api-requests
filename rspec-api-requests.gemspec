@@ -25,10 +25,11 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'activesupport' # to .slice, etc
   spec.add_dependency 'faraday'   # to send remote HTTP requests
-  spec.add_dependency 'rack-test' # to send local HTTP requests
+  spec.add_dependency 'faraday_middleware' # to encode JSON in POST
 
   # For development / Code coverage
   spec.add_development_dependency 'bundler', '~> 1.3'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'coveralls'
+  spec.add_development_dependency 'rack-test' # to test local apps
 end
