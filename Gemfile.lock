@@ -1,12 +1,12 @@
 PATH
   remote: .
   specs:
-    rspec-api-requests (0.6.2)
+    rspec-api-requests (0.7.0)
       activesupport
       faraday
       faraday_middleware
       rspec
-      rspec-api-expectations (~> 0.6.2)
+      rspec-api-expectations (~> 0.7.0)
 
 GEM
   remote: https://rubygems.org/
@@ -46,13 +46,13 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
-    rspec-api-expectations (0.6.2)
+    rspec-api-expectations (0.7.0)
       activesupport
       faraday
       rack
       rspec
-      rspec-api-matchers (~> 0.6.1)
-    rspec-api-matchers (0.6.1)
+      rspec-api-matchers (~> 0.7.0)
+    rspec-api-matchers (0.7.0)
       activesupport
       rack
       rspec
