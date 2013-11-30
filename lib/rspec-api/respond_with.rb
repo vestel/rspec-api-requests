@@ -12,7 +12,7 @@ module RSpecApi
       request_params = build_request_params
       result = request status, request_params, values, &block
 
-      extra_requests(request_params).map do |extra_request|
+      other_requests(request_params).map do |extra_request|
         body = values.merge extra_request.fetch(:params, {})
         params = request_params.merge extra_request.fetch(:expect, {})
         result = [*result] << request(status, params, body, &block)
@@ -30,7 +30,7 @@ module RSpecApi
       end
     end
 
-    def extra_requests(params = {})
+    def other_requests(params = {})
       if valid?(params) && params[:collection]
         params.fetch :extra_requests, {}
       else

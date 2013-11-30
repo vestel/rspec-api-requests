@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rspec-api-requests (0.7.1)
+    rspec-api-requests (0.7.2)
       activesupport
       faraday
       faraday_middleware
