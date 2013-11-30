@@ -33,7 +33,7 @@ module RSpecApi
 
       def expectations_for(status, params)
         keys = [:collection, :attributes, :sort, :filter, :page_links, :callback]
-        params.slice(*keys).delete_if{|k, v| v.blank?}.tap do |expectations|
+        params.slice(*keys).delete_if{|k, v| v.nil?}.tap do |expectations|
           expectations[:status] = status
         end
       end
