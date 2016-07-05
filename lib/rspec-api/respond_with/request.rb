@@ -56,6 +56,8 @@ module RSpecApi
             end
           end
         end
+        values = values['.*'] if values.key?('.*')
+        [route, values, extra]
       end
     end
   end
