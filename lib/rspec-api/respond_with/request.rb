@@ -50,9 +50,10 @@ module RSpecApi
           route = route.tap do |route|
             values.keys.each do |param|
               values.delete(param).tap do |value|
+                route.gsub! "=:#{param}", "=#{value}"
                 route.gsub! "/:#{param}", "/#{value}"
                 extra[param] = value
-              end if route.match "/:#{param}"
+              end if (route.match("=:#{param}") || route.match("/:#{param}"))
             end
           end
         end

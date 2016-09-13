@@ -218,6 +218,15 @@ describe 'respond_with', sandboxing: true do
     end
   end
 
+  context 'given a url_type get parameter that matches a placeholder in the route' do
+    let(:route) { '/endpoint?param=:id' }
+    let(:given_values) { {id: 123} }
+    it 'replaces the parameter in the route' do
+      expect_any_instance_of(Faraday::Connection).to receive(action).and_return(response)
+      expect(example.description).to eq 'GET /endpoint?param=123'
+    end
+  end
+
   context 'given a parameter that does not match a placeholder in the route' do
     let(:given_values) { {id: 123} }
     it 'passes the parameter to the body request' do
